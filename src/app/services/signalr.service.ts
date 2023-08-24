@@ -13,9 +13,9 @@ export class SignalrService {
   constructor() { }
   public startConnection() {
     return new Promise((resolve, reject) => {
-      // debugger;
+      debugger;
       this.hubConnection = new HubConnectionBuilder()
-        .withUrl("https://localhost:7228/feed").build();
+        .withUrl("https://localhost:49488/linenotify").build();
         
       this.hubConnection.start()
         .then(() => {
@@ -32,7 +32,7 @@ export class SignalrService {
     return this.$allFeed.asObservable();
   }
   public listenToAllFeeds() {
-    (<HubConnection>this.hubConnection).on("GetFeed", (data: Feed) => {
+    (<HubConnection>this.hubConnection).on("EnvisionPulse", (data: Feed) => {
       console.log(data);
       this.$allFeed.next(data);
     });
